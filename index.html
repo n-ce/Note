@@ -1,89 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="white">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/png" sizes="512x512" href="maskable_icon_x512.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="maskable_icon_x192.png" />
   <title>Note</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    input {
-      display: none;
-    }
-    textarea {
-      font-family: 'Open Sans';
-      width: 90%;
-      height: 90%;
-      padding: 5%;
-      margin: 0;
-      border: none;
-      resize: none;
-      outline: none;
-      background-color: transparent;
-    }
-  </style>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 
-<body>
-  <textarea placeholder="Click here to type."></textarea>
-  <button onclick="theme()" />Dark</button>
-  <button onclick="download()">Download</button>
-  <button onclick="clean()">Clear</button>
-  <label for="upload">Upload A Text File</label>
-  <input type="file" id="upload" onchange="loadFile(this.files[0])" accept="text/plain" />
-  <script>
-    const text = document.querySelector('textarea');
-    text.value = localStorage.getItem('key');
-    text.oninput = () => {
-      localStorage.setItem('key', text.value);
-    }
-    let clean = () => {
-      localStorage.clear();
-      location.reload();
-    }
-    let c;
-    let theme = () => {
-      if (c == null) {
-        document.body.style.backgroundColor = 'black';
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
-        text.style.color = 'white';
-        c = true;
-      }
-      else {
-        document.body.style.backgroundColor = 'white';
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", 'white');
-        text.style.color = 'black';
-        c = null;
-      }
-    }
-    let download = () => {
-      const textToBLOB = new Blob([text.value], { type: 'text/plain' });
-      let newLink = document.createElement("a");
-      newLink.download = 'Note.txt';
-
-      if (window.webkitURL != null) {
-        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
-      }
-      else {
-        newLink.href = window.URL.createObjectURL(textToBLOB);
-        newLink.style.display = "none";
-        document.body.appendChild(newLink);
-      }
-      newLink.click();
-    }
-    async function loadFile(file) {
-      text.value = await file.text();
-    }
-  </script>
+<body class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
+  <textarea class="m-0 pt-4 pl-6 is-size-6 is-family-monospace" placeholder="Click Here To Type."></textarea>
+  <div class="buttons is-centered">
+    <button class="button is-dark is-rounded" onclick="theme()" />Dark</button>
+    <button class="button is-info is-rounded" onclick="download()">Download</button>
+    <button class="button is-danger is-rounded" onclick="clean()">Clear</button>
+    <label class="button is-primary is-rounded" for="upload">Upload A Text File</label>
+  </div>
+  <input class="is-hidden" type="file" id="upload" onchange="loadFile(this.files[0])" accept="text/plain" />
+  <script src="script.js"></script>
+  <script src="service-worker.js"></script>
 </body>
 
 </html>
