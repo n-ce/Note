@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Note</title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  textarea {
+    font-family: 'Open Sans';
+    width: 90%;
+    height: 90%;
+    border: none;
+    resize: none;
+    outline: none;
+  }
+</style>
+
+<body>
+  <textarea placeholder="Click here to type"></textarea>
+</body>
+<script>
+  const text = document.querySelector('textarea');
+  text.value = localStorage.getItem('key');
+  text.oninput = () => {
+    localStorage.setItem('key', text.value);
+  }
+</script>
+
+</html>
