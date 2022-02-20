@@ -37,7 +37,7 @@
   <textarea placeholder="Click here to type."></textarea>
   <button onclick="theme()" />Dark</button>
   <button onclick="download()">Download</button>
-  <button onclick="clear()">Clear</button>
+  <button onclick="clean()">Clear</button>
   <label for="upload">Upload A Text File</label>
   <input type="file" id="upload" onchange="loadFile(this.files[0])" accept="text/plain" />
   <script>
@@ -46,7 +46,7 @@
     text.oninput = () => {
       localStorage.setItem('key', text.value);
     }
-    let clear = () => {
+    let clean = () => {
       localStorage.clear();
       location.reload();
     }
