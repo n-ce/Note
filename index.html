@@ -16,6 +16,9 @@
       height: 100%;
     }
 
+    input {
+      display: none;
+    }
     textarea {
       font-family: 'Open Sans';
       width: 90%;
@@ -31,21 +34,54 @@
 </head>
 
 <body>
-  <textarea placeholder="Click here to type. Type dark to activate dark mode. Reload to set to light. Type Clear to delete all data."></textarea>
+  <textarea placeholder="Click here to type."></textarea>
+  <button onclick="theme()" />Dark</button>
+  <button onclick="download()">Download</button>
+  <button onclick="clear()">Clear</button>
+  <label for="upload">Upload A Text File</label>
+  <input type="file" id="upload" onchange="loadFile(this.files[0])" accept="text/plain" />
   <script>
     const text = document.querySelector('textarea');
     text.value = localStorage.getItem('key');
     text.oninput = () => {
       localStorage.setItem('key', text.value);
-      if (text.value == 'dark') {
+    }
+    let clear = () => {
+      localStorage.clear();
+      location.reload();
+    }
+    let c;
+    let theme = () => {
+      if (c == null) {
         document.body.style.backgroundColor = 'black';
         document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
         text.style.color = 'white';
+        c = true;
       }
-      if (text.value == 'Clear') {
-        localStorage.clear();
-        location.reload();
+      else {
+        document.body.style.backgroundColor = 'white';
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", 'white');
+        text.style.color = 'black';
+        c = null;
       }
+    }
+    let download = () => {
+      const textToBLOB = new Blob([text.value], { type: 'text/plain' });
+      let newLink = document.createElement("a");
+      newLink.download = 'Note.txt';
+
+      if (window.webkitURL != null) {
+        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+      }
+      else {
+        newLink.href = window.URL.createObjectURL(textToBLOB);
+        newLink.style.display = "none";
+        document.body.appendChild(newLink);
+      }
+      newLink.click();
+    }
+    async function loadFile(file) {
+      text.value = await file.text();
     }
   </script>
 </body>
