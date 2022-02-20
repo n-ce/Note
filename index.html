@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="white">
   <title>Note</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
     html,
-    body,
-    textarea {
+    body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -21,20 +21,31 @@
       width: 90%;
       height: 90%;
       padding: 5%;
+      margin: 0;
       border: none;
       resize: none;
       outline: none;
+      background-color: transparent;
     }
   </style>
 </head>
 
 <body>
-  <textarea placeholder="Click here to type"></textarea>
+  <textarea placeholder="Click here to type. Type dark to activate dark mode. Reload to set to light. Type Clear to delete all data."></textarea>
   <script>
     const text = document.querySelector('textarea');
     text.value = localStorage.getItem('key');
     text.oninput = () => {
       localStorage.setItem('key', text.value);
+      if (text.value == 'dark') {
+        document.body.style.backgroundColor = 'black';
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
+        text.style.color = 'white';
+      }
+      if (text.value == 'Clear') {
+        localStorage.clear();
+        location.reload();
+      }
     }
   </script>
 </body>
