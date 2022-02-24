@@ -2,7 +2,10 @@
 const staticLoader = "Note"
 const assets = [
   "maskable_icon_x192.png",
-  "maskable_icon_x512.png"
+  "maskable_icon_x512.png",
+  "index.html",
+  "script.js",
+  "style.css"
 ]
 
 self.addEventListener("install", installEvent => {
