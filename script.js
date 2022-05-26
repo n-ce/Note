@@ -1,7 +1,3 @@
-if (localStorage.getItem('theme') != null) {
-  document.body.style.backgroundColor = 'black';
-}
-
 const text = document.querySelector('textarea');
 text.value = localStorage.getItem('key');
 text.oninput = () => {
@@ -12,19 +8,26 @@ let clean = () => {
   location.reload();
 }
 let c;
+let darkMode = () => {
+  document.body.style.backgroundColor = 'black';
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
+  text.style.color = 'white';
+  localStorage.setItem('theme','black');
+  c = true;
+}
+if (localStorage.getItem('theme') == 'black') {
+  darkMode();
+}
+
 let theme = () => {
   if (c == null) {
-    document.body.style.backgroundColor = 'black';
-    document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
-    text.style.color = 'white';
-    localStorage.setItem('theme','black');
-    c = true;
+    darkMode();
   }
   else {
     document.body.style.backgroundColor = 'white';
     document.querySelector('meta[name="theme-color"]').setAttribute("content", 'white');
     text.style.color = 'black';
-    localStorage.setItem('theme',null);
+    localStorage.setItem('theme','white');
     c = null;
   }
 }
