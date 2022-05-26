@@ -1,3 +1,7 @@
+if (localStorage.getItem('theme') != null) {
+  document.body.style.backgroundColor = 'black';
+}
+
 const text = document.querySelector('textarea');
 text.value = localStorage.getItem('key');
 text.oninput = () => {
@@ -13,12 +17,14 @@ let theme = () => {
     document.body.style.backgroundColor = 'black';
     document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
     text.style.color = 'white';
+    localStorage.setItem('theme','black');
     c = true;
   }
   else {
     document.body.style.backgroundColor = 'white';
     document.querySelector('meta[name="theme-color"]').setAttribute("content", 'white');
     text.style.color = 'black';
+    localStorage.setItem('theme',null);
     c = null;
   }
 }
