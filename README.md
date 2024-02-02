@@ -2,7 +2,7 @@
 
 [![](public/192.png)](https://n-ce.github.io/Note/)
 
-Robust Single Note Taking Progressive Web Application.
+*Robust Single Note Taking Progressive Web Application.*
 
 ### Developed with Vanilla TS & Tailwind.
 ![IMG_20240202_130334](https://github.com/n-ce/Note/assets/69345507/4feb42c3-e2dc-406e-933d-3130dab7f608)
