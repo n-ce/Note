@@ -1,51 +1,20 @@
-const text = document.querySelector('textarea');
-text.value = localStorage.getItem('key');
-text.oninput = () => {
-  localStorage.setItem('key', text.value);
-}
-let clean = () => {
+const textarea = document.querySelector('textarea');
+textarea.value = localStorage.getItem('key');
+textarea.addEventListener('input', () => {
+  localStorage.setItem('key', textarea.value);
+});
+function clean() {
   localStorage.clear();
-  location.reload();
-}
-let c;
-let darkMode = () => {
-  document.body.style.backgroundColor = 'black';
-  document.querySelector('meta[name="theme-color"]').setAttribute("content", 'black');
-  text.style.color = 'white';
-  localStorage.setItem('theme','black');
-  c = true;
-}
-if (localStorage.getItem('theme') == 'black') {
-  darkMode();
+  textarea.textContent = '';
 }
 
-let theme = () => {
-  if (c == null) {
-    darkMode();
-  }
-  else {
-    document.body.style.backgroundColor = 'white';
-    document.querySelector('meta[name="theme-color"]').setAttribute("content", 'white');
-    text.style.color = 'black';
-    localStorage.setItem('theme','white');
-    c = null;
-  }
-}
-let download = () => {
-  const textToBLOB = new Blob([text.value], { type: 'text/plain' });
-  let newLink = document.createElement("a");
-  newLink.download = 'Note.txt';
-
-  if (window.webkitURL != null) {
-    newLink.href = window.webkitURL.createObjectURL(textToBLOB);
-  }
-  else {
-    newLink.href = window.URL.createObjectURL(textToBLOB);
-    newLink.style.display = "none";
-    document.body.appendChild(newLink);
-  }
-  newLink.click();
+function download() {
+  const textToBLOB = new Blob([textarea.value], { type: 'text/plain' });
+  const link = document.createElement('a');
+  link.download = 'Note.txt';
+  link.href = URL.createObjectURL(textToBLOB);
+  link.click();
 }
 async function loadFile(file) {
-  text.value = await file.text();
+  textarea.value = await file.text();
 }
