@@ -1,33 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Note</title>
   <meta name="theme-color" content="white">
   <meta name="description" content="single page note taking app">
   <meta name="author" content="Animesh Nath">
   <meta name="keywords" content="note, notes, website, free, offline">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" type="image/png" sizes="512x512" href="maskable_icon_x512.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="maskable_icon_x192.png" />
-  <title>Note</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="icon" type="image/png" sizes="512x512" href="/512.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/192.png" />
+  <style>
+    @import "tailwindcss/base";
+    @import "tailwindcss/components";
+    @import "tailwindcss/utilities";
+  </style>
 </head>
 
-<body class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
-  <textarea class="m-0 pt-4 px-5 is-size-6 is-family-monospace" placeholder="Click Here To Type."></textarea>
-  <div class="buttons is-centered">
-    <button class="button is-dark is-rounded" onclick="theme()" />Dark</button>
-    <button class="button is-info is-rounded" onclick="download()">Download</button>
-    <button class="button is-danger is-rounded" onclick="clean()">Clear</button>
-    <label class="button is-primary is-rounded" for="upload">Upload A Text File</label>
+<body class="h-dvh flex items-center justify-center font-serif bg-neutral-50  dark:bg-neutral-950 align-top">
+  <textarea class="h-dvh w-dvw p-4 bg-transparent resize-none outline-none dark:text-neutral-50"
+    placeholder="Enter Text Here"></textarea>
+  <div class="fixed flex justify bottom-4 text-neutral-950/70 dark:invert font-sans font-bold p-1 select-none">
+
+    <button class="flex items-center bg-transparent p-2 transition-colors hover:text-neutral-950" id="download">
+
+      <svg xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path fill-rule="evenodd"
+          d="M19.5 21a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3h-5.379a.75.75 0 0 1-.53-.22L11.47 3.66A2.25 2.25 0 0 0 9.879 3H4.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h15Zm-6.75-10.5a.75.75 0 0 0-1.5 0v4.19l-1.72-1.72a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 1 0-1.06-1.06l-1.72 1.72V10.5Z"
+          clip-rule="evenodd" />
+      </svg>
+      <p>&nbsp;Download</p>
+    </button>
+
+    <label for="upload" class="flex items-center bg-transparent p-2 transition-colors hover:text-neutral-950">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path
+          d="M11.47 1.72a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1-1.06 1.06l-1.72-1.72V7.5h-1.5V4.06L9.53 5.78a.75.75 0 0 1-1.06-1.06l3-3ZM11.25 7.5V15a.75.75 0 0 0 1.5 0V7.5h3.75a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-9a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h3.75Z" />
+      </svg>
+      <p>&nbsp;Upload</p>
+    </label>
+
+    <input class="hidden" type="file" id="upload" accept="text/plain" />
+    <button
+      class="flex items-center bg-yellow-500/70 ml-3 p-2 text-neutral-950 rounded-full shadow-sm transition-all hover:active:scale-95"
+      id="clear">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path fill-rule="evenodd"
+          d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+          clip-rule="evenodd" />
+      </svg>
+      <p>&nbsp;Clear</p>
+    </button>
   </div>
-  <input class="is-hidden" type="file" id="upload" onchange="loadFile(this.files[0])" accept="text/plain" />
-  <script src="script.js"></script>
-  <script src="service-worker.js"></script>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>
